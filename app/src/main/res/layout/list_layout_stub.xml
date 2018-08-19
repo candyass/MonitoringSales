@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewSwitcher
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/list_layout_switcher">
+
+    <TextView
+        android:id="@+id/list_layout_textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Contoh"
+        android:textColor="@color/colorTextLabel"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_layout_recyclerView"/>
+
+</ViewSwitcher>

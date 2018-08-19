@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="4dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/list_penukaran_hadiah_foto"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_placeholder"
+            app:layout_constraintBottom_toTopOf="@+id/textView21"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/list_penukaran_hadiah_nama_outlet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toStartOf="@+id/list_penukaran_hadiah_tanggal"
+            app:layout_constraintStart_toEndOf="@+id/list_penukaran_hadiah_foto"
+            app:layout_constraintTop_toTopOf="@+id/list_penukaran_hadiah_foto" />
+
+        <TextView
+            android:id="@+id/list_penukaran_hadiah_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            app:layout_constraintBaseline_toBaselineOf="@+id/list_penukaran_hadiah_nama_outlet"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/list_penukaran_hadiah_jumlah_mangkok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/ic_mangkok_color"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_penukaran_hadiah_nama_outlet" />
+
+        <TextView
+            android:id="@+id/list_penukaran_hadiah_jumlah_piring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:drawableLeft="@drawable/ic_piring_color"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/list_penukaran_hadiah_jumlah_mangkok"
+            app:layout_constraintEnd_toStartOf="@+id/list_penukaran_hadiah_jumlah_mangkok" />
+
+        <TextView
+            android:id="@+id/list_penukaran_hadiah_jumlah_gelas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:drawableLeft="@drawable/ic_gelas_color"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/list_penukaran_hadiah_jumlah_piring"
+            app:layout_constraintEnd_toStartOf="@+id/list_penukaran_hadiah_jumlah_piring" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/border_down_label_primary_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_penukaran_hadiah_jumlah_gelas" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

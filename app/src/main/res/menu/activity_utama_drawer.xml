@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_outlet"
+            android:icon="@drawable/ic_menu_outlet"
+            android:title="Outlet"
+            android:checkable="true"
+            android:checked="true"/>
+        <item
+            android:id="@+id/nav_penukaran_bungkus"
+            android:icon="@drawable/ic_menu_penukaran"
+            android:title="Penukaran Bungkus" />
+        <item
+            android:id="@+id/nav_penukaran_hadiah"
+            android:icon="@drawable/ic_menu_kunjungan"
+            android:title="Penukaran Hadiah" />
+    </group>
+
+</menu>

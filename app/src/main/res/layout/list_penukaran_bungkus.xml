@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_penukaran_bungkus_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="4dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:selectableItemBackground">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/list_penukaran_bungkus_foto"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_placeholder"
+            app:layout_constraintBottom_toTopOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/list_penukaran_bungkus_nama_outlet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toStartOf="@+id/list_penukaran_bungkus_tanggal"
+            app:layout_constraintStart_toEndOf="@+id/list_penukaran_bungkus_foto"
+            app:layout_constraintTop_toTopOf="@+id/list_penukaran_bungkus_foto" />
+
+        <TextView
+            android:id="@+id/list_penukaran_bungkus_total_bungkus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@drawable/ic_bungkus_24dp"
+            android:text="144 Bungkus"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toStartOf="@+id/list_penukaran_bungkus_ditukar"
+            app:layout_constraintStart_toEndOf="@+id/list_penukaran_bungkus_foto"
+            app:layout_constraintTop_toBottomOf="@+id/list_penukaran_bungkus_nama_outlet" />
+
+        <TextView
+            android:id="@+id/list_penukaran_bungkus_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:layout_constraintBaseline_toBaselineOf="@+id/list_penukaran_bungkus_nama_outlet"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/list_penukaran_bungkus_ditukar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:drawableLeft="@drawable/ic_ditukar_24dp"
+            android:gravity="center"
+            android:text="Belum Ditukar"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintBaseline_toBaselineOf="@+id/list_penukaran_bungkus_total_bungkus"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_goneMarginTop="8dp"
+            android:background="@drawable/border_down_label_primary_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_penukaran_bungkus_ttd_text" />
+
+        <ImageView
+            android:id="@+id/list_penukaran_bungkus_ttd"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
+            app:layout_constraintDimensionRatio=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_penukaran_bungkus_ditukar"
+            app:srcCompat="@drawable/bijag" />
+
+        <TextView
+            android:id="@+id/list_penukaran_bungkus_ttd_text"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:text="TTD"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/list_penukaran_bungkus_ttd"
+            app:layout_constraintEnd_toStartOf="@+id/list_penukaran_bungkus_ttd"
+            app:layout_constraintTop_toTopOf="@+id/list_penukaran_bungkus_ttd"
+            app:layout_goneMarginEnd="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

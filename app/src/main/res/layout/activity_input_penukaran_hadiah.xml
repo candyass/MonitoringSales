@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sps.monitoringsales.view.activity.InputPenukaranHadiahActivity">
+
+    <Button
+        android:id="@+id/input_penukaran_hadiah_tukar_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="tukar hadiah"
+        android:background="@drawable/rectangle_state_accent_button"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_right_separator"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/input_penukaran_hadiah_jumlah_hadiah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah Hadiah"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/input_penukaran_hadiah_jumlah_bungkus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="130"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah Bungkus"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <ImageView
+        android:id="@+id/input_penukaran_hadiah_tambah_gelas"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_logo"
+        android:src="@drawable/ic_add_box_34dp" />
+
+    <TextView
+        android:id="@+id/input_penukaran_hadiah_jumlah_gelas"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_tambah_gelas"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_tambah_gelas" />
+
+    <ImageView
+        android:id="@+id/input_penukaran_hadiah_kurang_gelas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_jumlah_gelas"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_jumlah_gelas"
+        android:src="@drawable/ic_min_box34dp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:drawableLeft="@drawable/ic_gelas_color"
+        android:text="Gelas"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_kurang_gelas"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_kurang_gelas"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/input_penukaran_hadiah_tambah_piring"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_penukaran_hadiah_tambah_gelas"
+        android:src="@drawable/ic_add_box_34dp" />
+
+    <TextView
+        android:id="@+id/input_penukaran_hadiah_jumlah_piring"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_tambah_piring"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_tambah_piring" />
+
+    <ImageView
+        android:id="@+id/input_penukaran_hadiah_kurang_piring"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_jumlah_piring"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_jumlah_piring"
+        android:src="@drawable/ic_min_box34dp" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:drawableLeft="@drawable/ic_piring_color"
+        android:gravity="center"
+        android:text="Piring"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_kurang_piring"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_kurang_piring"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/input_penukaran_hadiah_tambah_mangkok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_penukaran_hadiah_tambah_piring"
+        android:src="@drawable/ic_add_box_34dp" />
+
+    <TextView
+        android:id="@+id/input_penukaran_hadiah_jumlah_mangkok"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="0"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_tambah_mangkok"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_tambah_mangkok" />
+
+    <ImageView
+        android:id="@+id/input_penukaran_hadiah_kurang_mangkok"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_jumlah_mangkok"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_jumlah_mangkok"
+       android:src="@drawable/ic_min_box34dp" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:drawableLeft="@drawable/ic_mangkok_color"
+        android:gravity="center"
+        android:text="Mangkok"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/input_penukaran_hadiah_kurang_mangkok"
+        app:layout_constraintEnd_toStartOf="@+id/input_penukaran_hadiah_kurang_mangkok"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_logo"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_nama"
+        app:srcCompat="@drawable/ic_logo" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_nama"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <TextView
+            android:id="@+id/input_penukaran_hadiah_nama_outlet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Moh.Sigit"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorPrimary" />
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
