@@ -16,16 +16,20 @@ import java.util.List;
 
 public class OutletFragmentViewModel extends AndroidViewModel {
 
-    private LiveData<List<Outlet>> listOutlet;
+    private SalesRepository repository;
 
     public OutletFragmentViewModel(@NonNull Application application) {
         super(application);
-        SalesRepository repository = SalesRepository.getInstance(application);
-        listOutlet = repository.getAllOutlet();
+        repository = SalesRepository.getInstance(application);
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        repository = null;
+    }
 
-    public LiveData<List<Outlet>> getListOutlet() {
-        return listOutlet;
+    public LiveData<List<Outlet>> getListOutlet(String idAkun) {
+        return repository.getAllOutlet(idAkun);
     }
 }

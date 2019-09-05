@@ -19,6 +19,7 @@ import android.widget.ViewSwitcher;
 
 import com.sps.monitoringsales.R;
 import com.sps.monitoringsales.database.entity.PenukaranBungkus;
+import com.sps.monitoringsales.model.PenilaianKeluhanQuery;
 import com.sps.monitoringsales.model.PenukaranBungkusQuery;
 import com.sps.monitoringsales.util.MyLogger;
 import com.sps.monitoringsales.view.activity.InputPenukaranActivity;
@@ -40,15 +41,20 @@ public class PenukaranBungkusFragment extends Fragment {
 
     private static final DateFormat sDateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
     private static final int REQUEST_TUKAR_HADIAH = 200;
+    private static final String KEY_AKUN_ID = "com.monitoringsales.penukaranbungkusfragment.key.akunid";
 
     private ViewSwitcher mSwitcher;
     private RecyclerView mRecylerView;
     private TextView mTextLabel;
+    private String mAkunId;
 
     private PenukaranBungkusFragmentViewModel mViewModel;
 
-    public static Fragment newInstance() {
+    public static Fragment newInstance(String akunId) {
         Fragment fragment = new PenukaranBungkusFragment();
+        Bundle arg = new Bundle();
+        arg.putString(KEY_AKUN_ID, akunId);
+        fragment.setArguments(arg);
         return fragment;
     }
 
@@ -56,6 +62,7 @@ public class PenukaranBungkusFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(PenukaranBungkusFragmentViewModel.class);
+        mAkunId = getArguments().getString(KEY_AKUN_ID);
     }
 
     @Nullable
@@ -69,13 +76,23 @@ public class PenukaranBungkusFragment extends Fragment {
 
         mTextLabel.setText(R.string.list_penukaran_label);
         mRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAkunId = getArguments().getString(KEY_AKUN_ID);
 
-        mViewModel.getAllPenukranBungkus().observe(this, penukaranBungkusQueries -> {
-            MyLogger.logPesan("PenukaranBungkusQuery size : " + String.valueOf(penukaranBungkusQueries.size()));
-            if(penukaranBungkusQueries != null) {
-                if (penukaranBungkusQueries.size() > 0) {
+//        mViewModel.getAllPenukranBungkus(mAkunId).observe(this, penukaranBungkusQueries -> {
+//            MyLogger.logPesan("PenukaranBungkusQuery size : " + String.valueOf(penukaranBungkusQueries.size()));
+//            if(penukaranBungkusQueries != null) {
+//                if (penukaranBungkusQueries.size() > 0) {
+//                    showListItem(true);
+//                    mRecylerView.setAdapter(new PenukaranBungkusAdapter(penukaranBungkusQueries));
+//                }
+//            }
+//        });
+
+        mViewModel.getAllPenilaianKeluhan(mAkunId).observe(this, penilaianKeluhanQueries -> {
+            if(penilaianKeluhanQueries != null) {
+                if(penilaianKeluhanQueries.size() > 0) {
                     showListItem(true);
-                    mRecylerView.setAdapter(new PenukaranBungkusAdapter(penukaranBungkusQueries));
+                    mRecylerView.setAdapter(new PenukaranBungkusAdapter(penilaianKeluhanQueries));
                 }
             }
         });
@@ -88,7 +105,7 @@ public class PenukaranBungkusFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         UtamaActivity activity = (UtamaActivity) getActivity();
         activity.setTitleAndAction(R.string.label_daftar_penukaran_bungkus, v -> {
-            Intent intent = InputPenukaranActivity.newIntent(getContext());
+            Intent intent = InputPenukaranActivity.newIntent(getContext(),mAkunId);
             startActivity(intent);
         }, true);
     }
@@ -122,7 +139,7 @@ public class PenukaranBungkusFragment extends Fragment {
         private ImageView mTandaTangan;
         private TextView mTandaTanganText;
 
-        private PenukaranBungkusQuery mQuery;
+        private PenilaianKeluhanQuery mQuery;
 
         public PenukaranBungkusHolder(View itemView) {
             super(itemView);
@@ -137,15 +154,15 @@ public class PenukaranBungkusFragment extends Fragment {
             mCardView.setOnClickListener(this);
         }
 
-        public void bindItem(PenukaranBungkusQuery query) {
+        public void bindItem(PenilaianKeluhanQuery query) {
             mQuery = query;
             mFoto.setImageBitmap(mQuery.getFoto());
             mNamaOutlet.setText(mQuery.getNamaOutlet());
-            mTanggal.setText(sDateFormat.format(mQuery.getTanggalPenukaran()));
-            mTotalBungkus.setText(String.valueOf(mQuery.getTotalBungkus()) + " Bungkus");
+            mTanggal.setText(sDateFormat.format(mQuery.getTanggalPenilaian()));
+            mTotalBungkus.setText(String.valueOf(mQuery.getTotalBungkus()));
 
-            prosesStatusPenukaran(mQuery.isDitukar());
-            if(mQuery.isDitukar()) {
+            prosesStatusPenukaran(mQuery.isRating());
+            if(mQuery.isRating()) {
                 mCardView.setClickable(false);
             }
 
@@ -160,11 +177,11 @@ public class PenukaranBungkusFragment extends Fragment {
 
         private void prosesStatusPenukaran(boolean value) {
             if(value) {
-                mDitukar.setText("Ditukar");
+                mDitukar.setText("telah diRating");
                 mDitukar.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_ditukar_24dp, 0, 0, 0);
                 mDitukar.setTextColor(getResources().getColor(R.color.colorGreen));
             }else {
-                mDitukar.setText("Belum Ditukar");
+                mDitukar.setText("belum diRating");
                 mDitukar.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_belum_ditukar24dp, 0, 0, 0);
                 mDitukar.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
@@ -182,17 +199,17 @@ public class PenukaranBungkusFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = InputPenukaranHadiahActivity.newIntent(getContext(), mQuery.getNamaOutlet(), mQuery.getIdPenukaran(), mQuery.getTotalBungkus());
-            startActivityForResult(intent, REQUEST_TUKAR_HADIAH);
+//            Intent intent = InputPenukaranHadiahActivity.newIntent(getContext(), mQuery.getNamaOutlet(), mQuery.getIdPenukaran(), mQuery.getTotalBungkus());
+//            startActivityForResult(intent, REQUEST_TUKAR_HADIAH);
         }
     }
 
 
     class PenukaranBungkusAdapter extends RecyclerView.Adapter<PenukaranBungkusHolder> {
 
-        private List<PenukaranBungkusQuery> list;
+        private List<PenilaianKeluhanQuery> list;
 
-        public PenukaranBungkusAdapter(List<PenukaranBungkusQuery> list) {
+        public PenukaranBungkusAdapter(List<PenilaianKeluhanQuery> list) {
             this.list = list;
         }
 

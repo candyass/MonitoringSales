@@ -31,13 +31,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListOutletDialog extends DialogFragment {
 
+    private static final String KEY_AKUN_ID = "com.monitoringsales.dialog.key.akunid";
+
 
     private RecyclerView mRecyclerView;
     private TextView mTextLabel;
     private ViewSwitcher mSwitcher;
+    private String mAkunId;
 
-    public static DialogFragment newInstance() {
-        return new ListOutletDialog();
+    public static DialogFragment newInstance(String akunId) {
+        DialogFragment dialog = new ListOutletDialog();
+        Bundle arg = new Bundle();
+        arg.putString(KEY_AKUN_ID, akunId);
+        dialog.setArguments(arg);
+        return dialog;
     }
 
 
@@ -47,6 +54,7 @@ public class ListOutletDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = LayoutInflater.from(getContext());
+        mAkunId = getArguments().getString(KEY_AKUN_ID);
         ListOutletDialogViewModel viewModel = ViewModelProviders.of(this).get(ListOutletDialogViewModel.class);
 
         View v = inflater.inflate(R.layout.list_layout_stub, null);
@@ -58,7 +66,7 @@ public class ListOutletDialog extends DialogFragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        viewModel.getAllOutlet().observe(this, list -> {
+        viewModel.getAllOutlet(mAkunId).observe(this, list -> {
             if(list != null) {
                 if(list.size() > 0) {
                     mRecyclerView.setAdapter(new OutletAdapter(list));

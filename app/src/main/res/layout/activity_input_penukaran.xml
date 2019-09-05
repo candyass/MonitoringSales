@@ -103,7 +103,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Total Bungkus"
+        android:text="Total Produk"
         android:textColor="@color/colorAccent"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"

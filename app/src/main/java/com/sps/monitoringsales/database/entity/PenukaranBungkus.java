@@ -13,7 +13,8 @@ import android.arch.persistence.room.Ignore;
         @ForeignKey(entity = Penukaran.class, parentColumns = "id", childColumns = "idPenukaran"),
         @ForeignKey(entity = Bungkus.class, parentColumns = "idBungkus", childColumns = "idBungkus")},
         primaryKeys = {"idPenukaran", "idBungkus"})
-public class PenukaranBungkus {
+public class
+PenukaranBungkus {
 
     private int idPenukaran;
     private int idBungkus;

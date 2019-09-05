@@ -32,39 +32,11 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/list_penukaran_text_bungkus"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageButton
-        android:id="@+id/list_penukaran_kurang_button"
-        android:layout_width="38dp"
-        android:layout_height="28dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_rounded_state_left"
-        android:src="@drawable/ic_minus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/list_penukaran_text_bungkus"
-        app:layout_constraintTop_toBottomOf="@+id/list_penukaran_text_bungkus" />
 
-    <ImageButton
-        android:id="@+id/list_penukaran_tambah_button"
-        android:layout_width="38dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/button_rounded_state_right"
-        android:src="@drawable/ic_add_black"
-        app:layout_constraintBottom_toBottomOf="@+id/list_penukaran_kurang_button"
-        app:layout_constraintStart_toEndOf="@+id/list_penukaran_kurang_button" />
 
-    <TextView
-        android:id="@+id/list_penukaran_text_jumlah_bungkus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="0"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorDarkTextLabel"
-        app:layout_constraintBottom_toBottomOf="@+id/list_penukaran_tambah_button"
-        app:layout_constraintStart_toEndOf="@+id/list_penukaran_tambah_button" />
+
+
+
 
     <ImageView
         android:id="@+id/imageView4"

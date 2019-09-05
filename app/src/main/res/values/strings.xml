@@ -4,22 +4,29 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="list_outlet_label">Belum ada outlet terdaftar</string>
-    <string name="list_penukaran_label">Belum ada penukaran bungkus</string>
+    <string name="list_penukaran_label">Belum ada pengajuan rating</string>
     <string name="list_penukaran_hadiah_label">Belum ada penukaran hadiah</string>
     <string name="list_kunkungan_label">Belum ada kunjungan</string>
     <string name="label_input_outlet_berhasil">Outlet Berhasil Ditambahkan</string>
     <string name="label_input_penukaran_hadiah_berhasil">Hadiah Berhasil Ditukar</string>
     <string name="action_settings">Settings</string>
     <string name="label_daftar_outlet">Daftar Outlet</string>
-    <string name="label_daftar_penukaran_bungkus">Penukaran Bungkus</string>
+    <string name="label_daftar_penukaran_bungkus">Pengajuan</string>
     <string name="label_daftar_penukaran_hadiah">Penukaran Hadiah</string>
     <string name="label_daftar_kunjungan">Kunjungan</string>
     <string-array name="jenis_outlet">
-        <item>Gorengan</item>
-        <item>Kerupuk</item>
+        <item>Mie Ayam</item>
+        <item>Pecel</item>
         <item>Baso</item>
         <item>Ketoprak</item>
-        <item>Sayur</item>
+        <item>Lontong Sayur</item>
     </string-array>
-    <string name="title_activity_admin_utama">AdminUtamaActivity</string>
+    <string name="title_activity_admin_utama">Pengajuan Keluhan</string>
+    <string name="title_activity_sales_utama">Pengajuan Keluhan</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

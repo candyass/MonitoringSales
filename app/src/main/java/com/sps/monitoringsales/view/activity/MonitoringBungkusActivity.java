@@ -1,13 +1,11 @@
-package com.sps.monitoringsales.view.fragment;
+package com.sps.monitoringsales.view.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -16,7 +14,6 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.MPPointF;
 import com.sps.monitoringsales.R;
 import com.sps.monitoringsales.model.QueryTotalBungkus;
 import com.sps.monitoringsales.viewmodel.MonitoringViewModel;
@@ -24,38 +21,41 @@ import com.sps.monitoringsales.viewmodel.MonitoringViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sigit on 26/07/2018.
- */
+public class MonitoringBungkusActivity extends AppCompatActivity {
 
-public class MonitoringBungkusFragment extends Fragment {
+    private static final String EXTRA_AKUN_ID = "com.monitoringsales.monitoringbungkus.extra.akunid";
 
     private PieChart mPieChart;
     private List<PieEntry> listEntry;
     private PieDataSet mPieDataSet;
     private PieData mPieData;
     private MonitoringViewModel mViewModel;
+    private String mAkunId;
 
 
-    public static Fragment newInstance() {
-        Fragment fragment = new MonitoringBungkusFragment();
-        return fragment;
+    public static Intent newIntent(Context context, String idAkun) {
+        Intent intent = new Intent(context, MonitoringBungkusActivity.class);
+        intent.putExtra(EXTRA_AKUN_ID, idAkun);
+        return intent;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_monitoring_bungkus, container, false);
-        mPieChart = view.findViewById(R.id.monitoring_bungkus_piechart);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_monitoring_bungkus);
+        mAkunId = getIntent().getStringExtra(EXTRA_AKUN_ID);
+
+
+        mPieChart = findViewById(R.id.monitoring_bungkus_piechart);
 
         listEntry = new ArrayList<>();
         int[] colors = {getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.color1),
-        getResources().getColor(R.color.colorDarkTextLabel),getResources().getColor(R.color.color2),
-        getResources().getColor(R.color.color3),getResources().getColor(R.color.colorTextLabel)};
+                getResources().getColor(R.color.colorDarkTextLabel),getResources().getColor(R.color.color2),
+                getResources().getColor(R.color.color3),getResources().getColor(R.color.colorTextLabel)};
 
 
         mViewModel = ViewModelProviders.of(this).get(MonitoringViewModel.class);
-        mViewModel.getQueryTotalBungkus().observe(this, query -> {
+        mViewModel.getQueryTotalBungkus(mAkunId).observe(this, query -> {
             if(query.size() > 0) {
                 for(QueryTotalBungkus b : query) {
                     listEntry.add(new PieEntry(b.getTotalBungkus(),b.getNamaBungkus()));
@@ -84,7 +84,5 @@ public class MonitoringBungkusFragment extends Fragment {
         mPieChart.setCenterTextColor(R.color.colorDarkTextLabel);
         mPieChart.setNoDataText("Tekan Untuk Melihat");
 
-
-        return view;
     }
 }

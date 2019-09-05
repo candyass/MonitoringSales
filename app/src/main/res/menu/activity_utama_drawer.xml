@@ -13,11 +13,12 @@
         <item
             android:id="@+id/nav_penukaran_bungkus"
             android:icon="@drawable/ic_menu_penukaran"
-            android:title="Penukaran Bungkus" />
+            android:title="Pengajuan Keluhan" />
         <item
             android:id="@+id/nav_penukaran_hadiah"
             android:icon="@drawable/ic_menu_kunjungan"
-            android:title="Penukaran Hadiah" />
+            android:title="Penukaran Hadiah"
+            android:visible="false"/>
     </group>
 
 </menu>

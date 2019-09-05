@@ -31,11 +31,11 @@ public class MonitoringViewModel extends AndroidViewModel {
         repository = null;
     }
 
-    public LiveData<List<QueryTotalBungkus>> getQueryTotalBungkus() {
-        return repository.getQueryTotalBungkus();
+    public LiveData<List<QueryTotalBungkus>> getQueryTotalBungkus(String idAkun) {
+        return repository.getQueryTotalBungkus(idAkun);
     }
 
-    public LiveData<List<QueryTotalHadiah>> getQueryTotalHadiah() {
-        return repository.getQueryTotalHadiah();
+    public LiveData<List<QueryTotalHadiah>> getQueryTotalHadiah(String idAkun) {
+        return repository.getQueryTotalHadiah(idAkun);
     }
 }

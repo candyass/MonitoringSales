@@ -32,16 +32,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PenukaranHadiahFragment extends Fragment {
 
     private static final  DateFormat sDateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
+    private static final String KEY_AKUN_ID = "com.monitoringsales.penukaranhadiah.key.akunid";
 
     private ViewSwitcher mSwitcher;
     private RecyclerView mRecylerView;
     private TextView mTextLabel;
+    private String mAkunId;
 
     private PenukaranHadiahFragmentViewModel mViewModel;
 
 
-    public static Fragment newInstance() {
+    public static Fragment newInstance(String idAkun) {
         Fragment fragment = new PenukaranHadiahFragment();
+        Bundle arg = new Bundle();
+        arg.putString(KEY_AKUN_ID, idAkun);
+        fragment.setArguments(arg);
         return fragment;
     }
 
@@ -49,6 +54,7 @@ public class PenukaranHadiahFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(PenukaranHadiahFragmentViewModel.class);
+        mAkunId = getArguments().getString(KEY_AKUN_ID);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class PenukaranHadiahFragment extends Fragment {
         mRecylerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        mViewModel.getAllPenukaranHadiah().observe(this, list -> {
+        mViewModel.getAllPenukaranHadiah(mAkunId).observe(this, list -> {
             if(list != null) {
                 if (list.size() > 0) {
                     showListItem(true);

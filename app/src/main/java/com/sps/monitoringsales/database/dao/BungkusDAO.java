@@ -29,9 +29,9 @@ public interface BungkusDAO {
     @Query("SELECT * FROM Bungkus WHERE idBungkus = :idBungkus")
     public LiveData<Bungkus> getBungkus(int idBungkus);
 
-    @Query("SELECT namaBungkus, pb.totalBungkus FROM " +
-            "Bungkus LEFT OUTER JOIN (SELECT idBungkus, SUM(jumlahBungkus) as totalBungkus " +
-            "FROM PenukaranBungkus GROUP BY idBungkus) AS pb " +
-            "ON Bungkus.idBungkus = pb.idBungkus")
-    public LiveData<List<QueryTotalBungkus>> getQueryTotalBungkus();
+    @Query("SELECT namaBungkus, ph.totalBungkus FROM Bungkus LEFT OUTER JOIN (SELECT idBungkus, SUM(jumlahBungkus) AS " +
+            "totalBungkus FROM PenukaranBungkus WHERE idPenukaran IN (SELECT p.id FROM Akun a JOIN Outlet o " +
+            "ON a.akunId = o.idAkun JOIN Penukaran p ON o.id = p.idOutlet " +
+            "WHERE a.akunId =:idAkun AND p.ditukar = 1) GROUP BY idBungkus) AS ph ON Bungkus.idBungkus = ph.idBungkus")
+    public LiveData<List<QueryTotalBungkus>> getQueryTotalBungkus(String idAkun);
 }

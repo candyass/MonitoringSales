@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sps.monitoringsales.R;
+import com.sps.monitoringsales.database.entity.KeluhanSaran;
+import com.sps.monitoringsales.database.entity.Penilaian;
 import com.sps.monitoringsales.database.entity.Penukaran;
 import com.sps.monitoringsales.database.entity.PenukaranBungkus;
 import com.sps.monitoringsales.model.OutletEvent;
@@ -45,6 +47,7 @@ public class InputPenukaranActivity extends AppCompatActivity {
     private static final String DIALOG_BUNGKUS_TAG = "ListBungkusDialog";
     private static final String DIALOG_OUTLET_TAG = "ListOutletDialog";
     private static final String DIALOG_PESAN_TAG = "PesanDialog";
+    private static final String EXTRA_AKUN_ID = "com.monitoringsales.inputpenukaran.extra.akunid";
 
     private CircleImageView mGambarOutlet;
     private TextView mNamaOutlet;
@@ -54,6 +57,7 @@ public class InputPenukaranActivity extends AppCompatActivity {
     private TextView mTotalBungkusText;
     private TextView mTanggal;
     private LinearLayout mLinearLayout;
+    private String mAkunId;
 
     private InputPenukaranActivityViewModel mViewModel;
 
@@ -61,8 +65,10 @@ public class InputPenukaranActivity extends AppCompatActivity {
     private int mTotalBungkus = 0;
 
 
-    public static Intent newIntent(Context context) {
+
+    public static Intent newIntent(Context context, String idAkun) {
         Intent intent = new Intent(context, InputPenukaranActivity.class);
+        intent.putExtra(EXTRA_AKUN_ID,idAkun);
         return intent;
     }
 
@@ -72,6 +78,7 @@ public class InputPenukaranActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_penukaran);
+        mAkunId = getIntent().getStringExtra(EXTRA_AKUN_ID);
 
         initializeViews();
 
@@ -93,7 +100,7 @@ public class InputPenukaranActivity extends AppCompatActivity {
         });
 
         mLinearLayout.setOnClickListener(v -> {
-            DialogFragment dialogOutlet = ListOutletDialog.newInstance();
+            DialogFragment dialogOutlet = ListOutletDialog.newInstance(mAkunId);
             dialogOutlet.show(getSupportFragmentManager(), DIALOG_OUTLET_TAG);
         });
 
@@ -108,17 +115,16 @@ public class InputPenukaranActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), DIALOG_PESAN_TAG);
                 return;
             }
-            if (mTotalBungkus == 0) {
-                DialogFragment dialog = PesanDialog.newInstance("Total Bungkus Kosong");
-                dialog.show(getSupportFragmentManager(), DIALOG_PESAN_TAG);
-                return;
-            }
-            List<PenukaranBungkus> listPenukaranBungkus = new ArrayList<>();
+//            List<PenukaranBungkus> listPenukaranBungkus = new ArrayList<>();
+            List<KeluhanSaran> listKeluhanSaran = new ArrayList<>();
             for(SelectedBungkus s : mAdapter.getListSelectecBungkus()) {
-                listPenukaranBungkus.add(new PenukaranBungkus(s.getIdBungkus(), s.getJumlahBungkus()));
+//                listPenukaranBungkus.add(new PenukaranBungkus(s.getIdBungkus(), s.getJumlahBungkus()));
+                listKeluhanSaran.add(new KeluhanSaran(s.getIdBungkus()));
             }
             Penukaran penukaran = new Penukaran(mViewModel.getmOutletEvent().getOutletId());
-            mViewModel.simpanAllSelectedBungkus(penukaran, listPenukaranBungkus);
+            Penilaian penilaian = new Penilaian(mViewModel.getmOutletEvent().getOutletId());
+//            mViewModel.simpanAllSelectedBungkus(penukaran, listPenukaranBungkus);
+            mViewModel.simpanAllPenilaianBungkus(penilaian, listKeluhanSaran);
             finish();
 
         });
@@ -166,6 +172,8 @@ public class InputPenukaranActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventBungkus(SelectedBungkus selectedBungkus) {
         mAdapter.tambahItem(selectedBungkus);
+        mTotalBungkus++;
+        mTotalBungkusText.setText(String.valueOf(mTotalBungkus));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -190,9 +198,6 @@ public class InputPenukaranActivity extends AppCompatActivity {
     class PenukaranHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextNamaBungkus;
-        private TextView mTextJumlahBungkus;
-        private ImageButton mTambahButton;
-        private ImageButton mKurangButton;
         private int jumlahBungkus;
 
         private SelectedBungkus mSelectedBungkus;
@@ -200,40 +205,24 @@ public class InputPenukaranActivity extends AppCompatActivity {
 
         public PenukaranHolder(View itemView) {
             super(itemView);
-            mTextJumlahBungkus = itemView.findViewById(R.id.list_penukaran_text_jumlah_bungkus);
             mTextNamaBungkus = itemView.findViewById(R.id.list_penukaran_text_bungkus);
-            mKurangButton = itemView.findViewById(R.id.list_penukaran_kurang_button);
-            mTambahButton = itemView.findViewById(R.id.list_penukaran_tambah_button);
             jumlahBungkus = 0;
-            mTextJumlahBungkus.setText(String.valueOf(jumlahBungkus));
 
-            mTambahButton.setOnClickListener(v -> {
-                tambahJumlahBungkus(24);
-            });
-
-            mKurangButton.setOnClickListener(v -> {
-                if(jumlahBungkus > 0) {
-                    kurangJumlahBungkus(24);
-                }
-            });
         }
 
         public void bingItem(SelectedBungkus selectedBungkus) {
             mSelectedBungkus = selectedBungkus;
             mTextNamaBungkus.setText(mSelectedBungkus.getNamaBungkus());
-            mTextJumlahBungkus.setText(String.valueOf(mSelectedBungkus.getJumlahBungkus()));
         }
 
         private void kurangJumlahBungkus(int angka) {
             jumlahBungkus -= angka;
-            mTextJumlahBungkus.setText(String.valueOf(jumlahBungkus));
             mSelectedBungkus.setJumlahBungkus(jumlahBungkus);
             kurangTotalBungkus(angka);
         }
 
         private void tambahJumlahBungkus(int angka) {
             jumlahBungkus += angka;
-            mTextJumlahBungkus.setText(String.valueOf(jumlahBungkus));
             mSelectedBungkus.setJumlahBungkus(jumlahBungkus);
             tambahTotalBungkus(angka);
         }

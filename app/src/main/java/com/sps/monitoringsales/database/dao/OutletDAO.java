@@ -26,12 +26,13 @@ public  interface OutletDAO {
     @Update
     public void updateOutlet(Outlet outlet);
 
-    @Query("SELECT * FROM outlet")
-    public LiveData<List<Outlet>> getAllOutlet();
+    @Query("SELECT * FROM outlet WHERE idAkun =:akunId ")
+    public LiveData<List<Outlet>> getAllOutlet(String akunId);
 
-    @Query("SELECT * FROM outlet WHERE jenisOutlet = :jenisOutlet")
-    public LiveData<List<Outlet>> getAllOutlet(String jenisOutlet);
 
     @Query("SELECT * FROM outlet WHERE id = :id")
     public LiveData<Outlet> getOutlet(int id);
+
+    @Query("SELECT * FROM outlet WHERE namaPemilik =:namaPemilik AND noTelepon =:noTelepon")
+    public Outlet getOutlet(String namaPemilik, String noTelepon);
 }

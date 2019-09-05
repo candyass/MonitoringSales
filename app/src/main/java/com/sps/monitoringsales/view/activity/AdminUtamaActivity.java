@@ -4,11 +4,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,12 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sps.monitoringsales.R;
 import com.sps.monitoringsales.database.entity.Akun;
-import com.sps.monitoringsales.view.fragment.MonitoringBungkusFragment;
-import com.sps.monitoringsales.view.fragment.MonitoringHadiahFragment;
+import com.sps.monitoringsales.view.fragment.DaftarSalesFragment;
 import com.sps.monitoringsales.viewmodel.UtamaActivityViewModel;
 
 public class AdminUtamaActivity extends AppCompatActivity
@@ -58,7 +56,7 @@ public class AdminUtamaActivity extends AppCompatActivity
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
         if(fragment == null) {
-            fragment = MonitoringBungkusFragment.newInstance();
+            fragment = DaftarSalesFragment.newFragmentBungkus();
             getSupportFragmentManager().beginTransaction().add(R.id.admin_fragment_container, fragment).commit();
             mNavigationView.setCheckedItem(R.id.nav_monitor_bungkus);
         }
@@ -100,22 +98,22 @@ public class AdminUtamaActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
+        DaftarSalesFragment fragment = (DaftarSalesFragment) getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_monitor_bungkus:
-                if(fragment instanceof MonitoringBungkusFragment) {
+                if(fragment.isBungkusFragment()) {
 
                 }else {
-                    changeFragment(MonitoringBungkusFragment.newInstance());
+                    changeFragment(DaftarSalesFragment.newFragmentBungkus());
                     mNavigationView.setCheckedItem(R.id.nav_monitor_bungkus);
                 }
                 break;
             case R.id.nav_monitor_hadiah:
-                if(fragment instanceof MonitoringHadiahFragment) {
+                if(fragment.isHadiahFragment()) {
 
                 }else {
-                    changeFragment(MonitoringHadiahFragment.newInstance());
+                    changeFragment(DaftarSalesFragment.newFragmentHadiah());
                     mNavigationView.setCheckedItem(R.id.nav_monitor_hadiah);
                 }
                 break;

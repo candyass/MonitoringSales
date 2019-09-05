@@ -8,11 +8,15 @@ import com.sps.monitoringsales.database.LocalDatabase;
 import com.sps.monitoringsales.database.entity.Akun;
 import com.sps.monitoringsales.database.entity.Bungkus;
 import com.sps.monitoringsales.database.entity.Hadiah;
+import com.sps.monitoringsales.database.entity.KeluhanSaran;
 import com.sps.monitoringsales.database.entity.Outlet;
+import com.sps.monitoringsales.database.entity.Penilaian;
 import com.sps.monitoringsales.database.entity.Penukaran;
 import com.sps.monitoringsales.database.entity.PenukaranBungkus;
 import com.sps.monitoringsales.database.entity.PenukaranHadiah;
 import com.sps.monitoringsales.database.entity.Sales;
+import com.sps.monitoringsales.model.KeluhanSaranQuery;
+import com.sps.monitoringsales.model.PenilaianKeluhanQuery;
 import com.sps.monitoringsales.model.PenukaranBungkusQuery;
 import com.sps.monitoringsales.model.QueryPenukaranHadiah;
 import com.sps.monitoringsales.model.QueryTotalBungkus;
@@ -43,6 +47,7 @@ public class SalesRepository {
     private Context context;
 
     private Akun mAkun;
+    private Outlet outlet;
 
     public static synchronized SalesRepository getInstance(Context context) {
         if(singleton == null) {
@@ -62,8 +67,9 @@ public class SalesRepository {
             saveDaftarBungkus(Bungkus.getDaftarBungkus());
             saveDaftarHadiah(Hadiah.getDaftarHadiah());
             List<Akun> listAkun = new ArrayList<>();
-            listAkun.add(new Akun("270031","serang","Riazky",Akun.LOGIN_SALES));
-            listAkun.add(new Akun("430031","serang","Sigit",Akun.LOGIN_ADMIN));
+            listAkun.add(new Akun("12345","serang","Riazky",Akun.LOGIN_SALES));
+            listAkun.add(new Akun("123456","serang","Andi",Akun.LOGIN_SALES));
+            listAkun.add(new Akun("1234567","serang","Sigit",Akun.LOGIN_ADMIN));
             saveAkun(listAkun);
             PreferenceUtils.getInstance(context).saveBoolean(true);
         }
@@ -93,8 +99,8 @@ public class SalesRepository {
     }
 
 
-    public LiveData<List<Outlet>> getAllOutlet() {
-        return localDatabase.getOutletDAO().getAllOutlet();
+    public LiveData<List<Outlet>> getAllOutlet(String idAkun) {
+        return localDatabase.getOutletDAO().getAllOutlet(idAkun);
     }
 
     public LiveData<List<Bungkus>> getAllBungkus() {
@@ -132,8 +138,21 @@ public class SalesRepository {
         executor.execute(r);
     }
 
-    public LiveData<List<PenukaranBungkusQuery>> getAllPenukranBungkus() {
-        return localDatabase.getPenukaranBungkusDAO().getPenukaran();
+    public void simpanPenilaianBungkus(Penilaian penilaian, List<KeluhanSaran> list) {
+        Runnable r =  () -> {
+            localDatabase.getPenilaianKeluhanDAO().insertAllPenukaranAndBungkus(penilaian, list);
+        };
+        executor.execute(r);
+    }
+
+    public LiveData<List<PenukaranBungkusQuery>> getAllPenukranBungkus(String idAkun) {
+        return localDatabase.getPenukaranBungkusDAO().getPenukaran(idAkun);
+    }
+
+
+    // new
+    public LiveData<List<PenilaianKeluhanQuery>> getAllPenilaianKeluhan(String idAkun) {
+        return localDatabase.getPenilaianKeluhanDAO().getPenilaianKeluhan(idAkun);
     }
 
     public LiveData<Penukaran> getPenukaran(int idPenukaran) {
@@ -147,8 +166,8 @@ public class SalesRepository {
         executor.execute(r);
     }
 
-    public LiveData<List<QueryPenukaranHadiah>> loadPenukaranHadiah() {
-        return  localDatabase.getPenukaranBungkusDAO().loadPenukaranHadiah();
+    public LiveData<List<QueryPenukaranHadiah>> loadPenukaranHadiah(String akunId) {
+        return  localDatabase.getPenukaranBungkusDAO().loadPenukaranHadiah(akunId);
     }
 
 
@@ -161,6 +180,18 @@ public class SalesRepository {
         return mAkun;
     }
 
+    public Outlet getOutlet(String namaPemilik, String noTelepon) throws ExecutionException, InterruptedException {
+        Callable<Outlet> callable = () -> localDatabase.getOutletDAO().getOutlet(namaPemilik, noTelepon);
+        FutureTask<Outlet> task = new FutureTask<>(callable);
+        new Thread(task).start();
+        outlet = task.get();
+        return outlet;
+    }
+
+    public Outlet getCurrentOutlet() {
+        return outlet;
+    }
+
     public Akun getCurrentAkun() {
         return mAkun;
     }
@@ -170,17 +201,33 @@ public class SalesRepository {
         executor.execute(r);
     }
 
-    public LiveData<List<QueryTotalBungkus>> getQueryTotalBungkus() {
-        return localDatabase.getBungkusDAO().getQueryTotalBungkus();
+    public LiveData<List<QueryTotalBungkus>> getQueryTotalBungkus(String idAkun) {
+        return localDatabase.getBungkusDAO().getQueryTotalBungkus(idAkun);
     }
 
-    public LiveData<List<QueryTotalHadiah>> getQueryTotalHadiah() {
-        return localDatabase.getPenukaranBungkusDAO().getQueryTotalHadiah();
+    public LiveData<List<QueryTotalHadiah>> getQueryTotalHadiah(String idAkun) {
+        return localDatabase.getPenukaranBungkusDAO().getQueryTotalHadiah(idAkun);
+    }
+
+    public LiveData<List<Akun>> getAllAkun() {
+        return localDatabase.getAkunDAO().getAllAkun();
     }
 
 
+    public LiveData<List<PenilaianKeluhanQuery>> getPenilaianKeluhanOutlet(int id) {
+        return localDatabase.getPenilaianKeluhanDAO().getPenilaianKeluhanOutlet(id);
+    }
 
+    public LiveData<List<KeluhanSaranQuery>> getKeluhanSaranQuery(int id) {
+        return localDatabase.getPenilaianKeluhanDAO().getKeluhanSaranQuery(id);
+    }
 
+    public void updateRating(int idPenilaian) {
+        Runnable r = () -> {
+            localDatabase.getPenilaianKeluhanDAO().updateFullStatus(idPenilaian, true);
+        };
+        executor.execute(r);
+    }
 
     public Context getContext() {
         return context;

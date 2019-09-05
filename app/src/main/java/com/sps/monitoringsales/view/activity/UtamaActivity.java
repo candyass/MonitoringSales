@@ -39,6 +39,7 @@ public class UtamaActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private ActionBarDrawerToggle toggle;
     private CoordinatorLayout coordinatorLayout;
+    private String mAkunId;
 
     private FragmentManager fm;
     private UtamaActivityViewModel mViewModel;
@@ -67,7 +68,7 @@ public class UtamaActivity extends AppCompatActivity
         fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
         if (fragment == null) {
-            fragment = OutletFragment.newInstance();
+            fragment = OutletFragment.newInstance(mAkunId);
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
     }
@@ -117,6 +118,8 @@ public class UtamaActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = AboutActivity.newIntent(getBaseContext());
+            startActivity(intent);
             return true;
         }
         Intent t = null;
@@ -133,7 +136,7 @@ public class UtamaActivity extends AppCompatActivity
                 if (f instanceof OutletFragment) {
 
                 } else {
-                    changeFragment(fm, OutletFragment.newInstance());
+                    changeFragment(fm, OutletFragment.newInstance(mAkunId));
                     enableNavigated();
                 }
                 break;
@@ -141,7 +144,7 @@ public class UtamaActivity extends AppCompatActivity
                 if (f instanceof PenukaranBungkusFragment) {
 
                 } else {
-                    changeFragment(fm, PenukaranBungkusFragment.newInstance());
+                    changeFragment(fm, PenukaranBungkusFragment.newInstance(mAkunId));
                     enableNavigated();
                 }
                 break;
@@ -149,7 +152,7 @@ public class UtamaActivity extends AppCompatActivity
                 if (f instanceof PenukaranHadiahFragment) {
 
                 }else {
-                    changeFragment(fm, PenukaranHadiahFragment.newInstance());
+                    changeFragment(fm, PenukaranHadiahFragment.newInstance(mAkunId));
                     enableNavigated();
                 }
                 break;
@@ -211,6 +214,7 @@ public class UtamaActivity extends AppCompatActivity
         TextView headerTextDeskripsi = headerView.findViewById(R.id.nav_header_deskripsi);
 
         Akun akun = mViewModel.getAkun();
+        mAkunId = akun.getAkunId();
         headerTextNama.setText(akun.getNamaPengguna());
         headerTextDeskripsi.setText("Sales");
     }

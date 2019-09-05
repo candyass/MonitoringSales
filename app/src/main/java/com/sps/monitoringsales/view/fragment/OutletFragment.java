@@ -35,6 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class OutletFragment extends Fragment {
 
     private static final int REQUEST_INPUT_OUTLET = 100;
+    private static final String KEY_AKUN_ID = "com.monitoringsales.outletfragment.key.akunid";
 
 
     private RecyclerView mRecyclerView;
@@ -42,11 +43,15 @@ public class OutletFragment extends Fragment {
     private TextView mLabelText;
     private OutletAdapter mAdapter;
     private OutletFragmentViewModel mViewModel;
+    private String mIdAkun;
 
 
 
-    public static Fragment newInstance() {
+    public static Fragment newInstance(String akunId) {
         Fragment fragment = new OutletFragment();
+        Bundle arg = new Bundle();
+        arg.putString(KEY_AKUN_ID, akunId);
+        fragment.setArguments(arg);
         return fragment;
     }
 
@@ -55,6 +60,7 @@ public class OutletFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(OutletFragmentViewModel.class);
         MyLogger.logPesan("OutletFragment onCreate is called");
+        mIdAkun = getArguments().getString(KEY_AKUN_ID);
     }
 
     @Nullable
@@ -67,7 +73,7 @@ public class OutletFragment extends Fragment {
 
         mLabelText.setText(R.string.list_outlet_label);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mViewModel.getListOutlet().observe(this, list -> {
+        mViewModel.getListOutlet(mIdAkun).observe(this, list -> {
             if(list != null) {
                 mRecyclerView.setAdapter(new OutletAdapter(list));
                 if(list.size() > 0) {

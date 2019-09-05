@@ -5,6 +5,8 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 import com.sps.monitoringsales.SalesRepository;
+import com.sps.monitoringsales.database.entity.KeluhanSaran;
+import com.sps.monitoringsales.database.entity.Penilaian;
 import com.sps.monitoringsales.database.entity.Penukaran;
 import com.sps.monitoringsales.database.entity.PenukaranBungkus;
 import com.sps.monitoringsales.model.OutletEvent;
@@ -35,6 +37,10 @@ public class InputPenukaranActivityViewModel extends AndroidViewModel{
 
     public void simpanAllSelectedBungkus(Penukaran penukaran, List<PenukaranBungkus> list) {
         repository.simpanPenukaranBungkusDipilih(penukaran, list);
+    }
+
+    public void simpanAllPenilaianBungkus(Penilaian penilaian, List<KeluhanSaran> list) {
+        repository.simpanPenilaianBungkus(penilaian, list);
     }
 
 

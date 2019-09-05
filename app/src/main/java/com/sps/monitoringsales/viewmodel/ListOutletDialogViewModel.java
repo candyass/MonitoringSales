@@ -16,20 +16,20 @@ import java.util.List;
 
 public class ListOutletDialogViewModel extends AndroidViewModel {
 
-    private LiveData<List<Outlet>> mListOutlet;
+    private SalesRepository repository;
 
     public ListOutletDialogViewModel(@NonNull Application application) {
         super(application);
-        mListOutlet = SalesRepository.getInstance(application).getAllOutlet();
+        repository = SalesRepository.getInstance(application);
     }
 
-    public LiveData<List<Outlet>> getAllOutlet() {
-        return mListOutlet;
+    public LiveData<List<Outlet>> getAllOutlet(String idAkun) {
+        return repository.getAllOutlet(idAkun);
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        mListOutlet = null;
+        repository = null;
     }
 }

@@ -1,5 +1,6 @@
 package com.sps.monitoringsales.database.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -20,4 +21,7 @@ public interface AkunDAO {
 
     @Query("SELECT * FROM Akun WHERE akunId =:idAkun AND password =:passwordAkun")
     public Akun getAkun(String idAkun, String passwordAkun);
+
+    @Query("SELECT * FROM Akun WHERE loginSebagai = 1")
+    public LiveData<List<Akun>> getAllAkun();
 }

@@ -56,8 +56,8 @@ public abstract class PenukaranBungkusDAO {
     public abstract LiveData<Penukaran> getPenukaran(int idPenukaran);
 
     @Query("SELECT Penukaran.id, foto, namaOutlet, tanggalPenukaran FROM Penukaran JOIN Outlet " +
-            "ON Penukaran.idOutlet = Outlet.id WHERE ditukar = 1")
-    public abstract LiveData<List<QueryPenukaranHadiah>> loadPenukaranHadiah();
+            "ON Penukaran.idOutlet = Outlet.id WHERE ditukar = 1 AND Outlet.idAkun =:akunId")
+    public abstract LiveData<List<QueryPenukaranHadiah>> loadPenukaranHadiah(String akunId);
 
     @Query("UPDATE Outlet SET jenisOutlet = 'RO' WHERE id = :idOutlet")
     public abstract void updateOutletKeRO(int idOutlet);
@@ -75,18 +75,19 @@ public abstract class PenukaranBungkusDAO {
         savePenukaranBungkus(list);
     }
 
+    // yang dibawah belum
     @Query("SELECT Outlet.id, foto, namaOutlet, idPenukaran, tandaTangan, tanggalPenukaran, ditukar, pb.totalBungkus FROM (SELECT idPenukaran, SUM(jumlahBungkus) " +
             "AS totalBungkus FROM PenukaranBungkus " +
             "GROUP BY idPenukaran) " +
             "AS pb LEFT OUTER JOIN Penukaran ON pb.idPenukaran = Penukaran.id " +
-            "JOIN outlet ON Penukaran.idOutlet = Outlet.id")
-    public abstract LiveData<List<PenukaranBungkusQuery>> getPenukaran();
+            "JOIN outlet ON Penukaran.idOutlet = Outlet.id WHERE Outlet.idAkun =:akunId")
+    public abstract LiveData<List<PenukaranBungkusQuery>> getPenukaran(String akunId);
 
-    @Query("SELECT namaHadiah, ph.totalHadiah FROM " +
-            "Hadiah LEFT OUTER JOIN (SELECT hadiahId, SUM(jumlahHadiah) AS " +
-            "totalHadiah FROM PenukaranHadiah GROUP BY hadiahId) AS ph " +
-            "ON idHadiah = hadiahId")
-    public abstract LiveData<List<QueryTotalHadiah>> getQueryTotalHadiah();
+    @Query("SELECT namaHadiah, ph.totalHadiah FROM Hadiah LEFT OUTER JOIN (SELECT hadiahId, SUM(jumlahHadiah) AS " +
+            "totalHadiah FROM PenukaranHadiah WHERE penukaranId IN (SELECT p.id FROM Akun a JOIN Outlet o " +
+            "ON a.akunId = o.idAkun JOIN Penukaran p ON o.id = p.idOutlet " +
+            "WHERE a.akunId =:idAkun AND p.ditukar = 1) GROUP BY hadiahId) AS ph ON idHadiah = hadiahId")
+    public abstract LiveData<List<QueryTotalHadiah>> getQueryTotalHadiah(String idAkun);
 
 
 

@@ -31,7 +31,7 @@ public class PenukaranHadiahFragmentViewModel extends AndroidViewModel {
 
 
 
-    public LiveData<List<QueryPenukaranHadiah>> getAllPenukaranHadiah() {
-        return repository.loadPenukaranHadiah();
+    public LiveData<List<QueryPenukaranHadiah>> getAllPenukaranHadiah(String akunId) {
+        return repository.loadPenukaranHadiah(akunId);
     }
 }

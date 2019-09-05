@@ -63,12 +63,14 @@ public class Bungkus {
 
     public static Bungkus[] getDaftarBungkus() {
         Bungkus[] bungkuses =
-                {new Bungkus("Bihun Padamu 350gr", R.drawable.padamu350),
-                        new Bungkus("Bihun Padamu 175gr", R.drawable.padamu175),
-                        new Bungkus("Langit Biru", R.drawable.langit_biru),
-                        new Bungkus("Mimora", R.drawable.mimora),
-                        new Bungkus("Bihun Jagung", R.drawable.bijag),
-                        new Bungkus("Bihun Padamu 60gr", R.drawable.padamu60)};
+                {
+                        new Bungkus("Saos 1", R.drawable.product_1),
+                        new Bungkus("Saos 2", R.drawable.product_2),
+                        new Bungkus("Saos 3", R.drawable.product_3),
+                        new Bungkus("Saos 4", R.drawable.product_4),
+                        new Bungkus("Saos 5", R.drawable.product_5),
+                        new Bungkus("Saos 6", R.drawable.product_6)
+                };
         return bungkuses;
     }
 }
